@@ -1,16 +1,6 @@
-#U3L3 Tic-Tac-Toe
-# Hiba Altaf
-
-#displays a menu that allows the user to choose whether they want a 2 player game or a game with the computer. 
-#draw the board if the user chooses to play.
-#take in user inputs and place them on the board
-#after each turn have function that checks whether there is a winner by looking at the rows, columns, and diagonals.
-#once all the slots are filled or if there is a winner, the game displays who won. Otherwise, the game tells the user that there is a tie. 
-
 
 import random
 
-#this function resets the 3 by 3 matrix such that each index is a number from 1-9 ordered from top left to bottom right. 
 def reset_board():
   global board
   board = [['1','2','3'],
@@ -18,16 +8,12 @@ def reset_board():
             ['7','8','9']]
   return
 
-#this function draws the board with the changes caused by the users' inputs. 
-#the board is displayed as an aligned 3 by 3 matrix.
 def draw_board():
   for row in board:
       for value in row:
         print(value, end = "  ")
       print()    
-
-#these lists store the values of each column and diagonal in a seperate list. 
-#the columns list stores all 3 columns and the diagonals list stores all 3 diagonals. 
+      
 column1_val = []
 column2_val = []
 column3_val = []
@@ -37,9 +23,6 @@ diagonal1_val = []
 diagonal2_val = []
 diagonals = [diagonal1_val, diagonal2_val]
 
-#this function checks who won the game. It is run when it is called in two_players() or play_with_comp. 
-#it checks each row to see if the values in the rows are identical. It then checks the columns in the grid and see if the values are identical. Finally, it checks the values of the diagonals to see if they are identical.
-# If any of these conditions are true, then it prints a statement, declaring the winner and returns 'DONE'.
 
 def check_for_winner():
 
@@ -76,10 +59,6 @@ def check_for_winner():
       print(diagonal[0] + ' is the winner')
       return 'DONE'
 
-#this function is run when it is called in the play_with_comp() function.
-#it checks if the human player is about to win. It does this by checking each row, column, and diagonal and seeing if it can find 2 of the player's symbols. If it can, then it finds the unfilled space in that segment that it needs to fill in order to prevent the player from winning. It then records what row that space is in using a global variable go_to_row. It also records which index the space is in the row and stores that value in global variable go_to_value.
-#it stores these values so the computer can access and use them to plot its symbol on that space.
-
 def almost_winner():
   global go_to_row
   go_to_row = ''
@@ -113,12 +92,6 @@ def almost_winner():
                 if x in row:
                   go_to_row = board.index(row)
                   go_to_value = row.index(x)
-
-#this function is run when the user enters 2.
-#at the start of each game, the board resets to its inital state(with numbered spaces).  
-#the function asks each player to enter the space on which they will plot their X or O, and after the user enters a value, it then reprints the board with the symbol plotted on the corresponding space. If the user does not enter an integer less than 10 for their input, they get an error message and asked to enter another value. 
-#each time a player enters a value, this function uses the check_for_winner() function to check if there is a winner before the next player can plot a value. If check_for_winner() shows that one of the players have won then the function displays the menu. 
-#if the board is filled up and there is no winner then the function prints a statement informing the reader of this.
 
 def two_players():
   
@@ -173,15 +146,7 @@ def two_players():
         draw_board()
         if check_for_winner() == 'DONE':
           display_menu()
-
-# this function is run with the user enters 3
-#at the start of each game, the board resets to its inital state(with numbered spaces). 
-# this allows the user to play with the computer. The player first chooses if they want to be X or O. The function then asks the player to enter the space on which they will plot their X or O, and plots the player's symbol in that space on the board. If the user does not enter an integer less than 10 then they get an error message and are asked for another input. 
-#if the player did not win then the function checks if the player is about to win by running the about_winner() function. If that function does return values for go_to_row and go_to_value, then the computer plots its symbol on the space that leads to board[go_to_row][go_to_value]
-#if the player has not won and is not about to win, then the function picks a random number from 1 to 9 and plots its symbol on the corresponding space.
-#the function runs the checks_for_winner() function to see if someone has won each time the player and computer play their turns. If they have, then the menu is displayed.
-#if the board is filled up and there is no winner then the function prints a statement informing the reader of this.
-
+          
 def play_with_comp():
   p2_inputs = []
   p1_inputs = []
@@ -244,8 +209,6 @@ def play_with_comp():
         if check_for_winner() == 'DONE':
           display_menu()
 
-#this function is run when the user enters 3.
-#it allows the user to exit the game. However, the user can reenter the game by entering 1. 
 def exit():
   print('Thanks for playing!')
   user_exit = input('Enter 1 to reenter the game: ')
@@ -253,9 +216,6 @@ def exit():
     display_menu()
   return
 
-#this function displays the menu to the user.
-#it runs different functions based on the user's input. If the user enters 1, then reset_board() is run which sets the board into the format with numbered spaces. This board is then printed to the user.  If the user enters 2, two_players() is run which allows 2 human players to play the game. If the user enters 3, play_with_comp() is run which allows 1 player to play the game with the computer. If the user enters 4, exit() is run which allows them to exit the game.
-#if the user does not enter one of the listed numbers then they get an error message and are asked to try again. 
 def display_menu():
   print("""
     1- Display menu
